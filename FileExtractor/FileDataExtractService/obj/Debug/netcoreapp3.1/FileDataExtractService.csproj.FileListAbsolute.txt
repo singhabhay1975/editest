@@ -16,3 +16,12 @@ C:\ABHAY\edi\AZFunctionFileHandling\AZFunctionFileHandling\FileExtractor\FileDat
 C:\ABHAY\edi\AZFunctionFileHandling\AZFunctionFileHandling\FileExtractor\FileDataExtractService\obj\Debug\netcoreapp3.1\FileDataExtractService.csproj.CoreCompileInputs.cache
 C:\ABHAY\edi\AZFunctionFileHandling\AZFunctionFileHandling\FileExtractor\FileDataExtractService\obj\Debug\netcoreapp3.1\FileDataExtractService.dll
 C:\ABHAY\edi\AZFunctionFileHandling\AZFunctionFileHandling\FileExtractor\FileDataExtractService\obj\Debug\netcoreapp3.1\FileDataExtractService.pdb
+C:\Users\anvardha\Desktop\AZFunctionFileHandling\gitrepo\FileExtractor\FileDataExtractService\bin\Debug\netcoreapp3.1\FileDataExtractService.deps.json
+C:\Users\anvardha\Desktop\AZFunctionFileHandling\gitrepo\FileExtractor\FileDataExtractService\bin\Debug\netcoreapp3.1\FileDataExtractService.dll
+C:\Users\anvardha\Desktop\AZFunctionFileHandling\gitrepo\FileExtractor\FileDataExtractService\bin\Debug\netcoreapp3.1\FileDataExtractService.pdb
+C:\Users\anvardha\Desktop\AZFunctionFileHandling\gitrepo\FileExtractor\FileDataExtractService\obj\Debug\netcoreapp3.1\FileDataExtractService.csprojAssemblyReference.cache
+C:\Users\anvardha\Desktop\AZFunctionFileHandling\gitrepo\FileExtractor\FileDataExtractService\obj\Debug\netcoreapp3.1\FileDataExtractService.AssemblyInfoInputs.cache
+C:\Users\anvardha\Desktop\AZFunctionFileHandling\gitrepo\FileExtractor\FileDataExtractService\obj\Debug\netcoreapp3.1\FileDataExtractService.AssemblyInfo.cs
+C:\Users\anvardha\Desktop\AZFunctionFileHandling\gitrepo\FileExtractor\FileDataExtractService\obj\Debug\netcoreapp3.1\FileDataExtractService.csproj.CoreCompileInputs.cache
+C:\Users\anvardha\Desktop\AZFunctionFileHandling\gitrepo\FileExtractor\FileDataExtractService\obj\Debug\netcoreapp3.1\FileDataExtractService.dll
+C:\Users\anvardha\Desktop\AZFunctionFileHandling\gitrepo\FileExtractor\FileDataExtractService\obj\Debug\netcoreapp3.1\FileDataExtractService.pdb

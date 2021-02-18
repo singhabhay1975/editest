@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileReaderFromBlob", "FileReaderFromBlob\FileReaderFromBlob.csproj", "{9C2195D7-F897-42EE-99D7-13919740372E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileReaderFromBlob", "FileReaderFromBlob\FileReaderFromBlob.csproj", "{9C2195D7-F897-42EE-99D7-13919740372E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileDataExtractService", "FileDataExtractService\FileDataExtractService.csproj", "{7E31CC6E-2C58-4898-A04F-6AA5AF08DBE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileDataExtractService", "FileDataExtractService\FileDataExtractService.csproj", "{7E31CC6E-2C58-4898-A04F-6AA5AF08DBE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

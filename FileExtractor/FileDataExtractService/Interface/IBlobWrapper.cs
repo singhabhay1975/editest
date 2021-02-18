@@ -21,5 +21,14 @@
         /// <param name="storageConnectionString">The connectionString.</param>
         /// <returns></returns>
         Task<List<string>> GetFile(string containerName, string fileName, string storageConnectionString);
+
+        /// <summary>
+        /// Save report.
+        /// </summary>
+        /// <param name="fileContent">The report content.</param>
+        /// <param name="containerName">The container.</param>
+        /// <param name="storageConnectionString">The connectionString.</param>
+        /// <returns></returns>
+        Task SaveReport(string fileContent, string containerName, string storageConnectionString);
     }
 }

@@ -7,6 +7,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
 
     public class BlobWrapper : IBlobWrapper
@@ -22,7 +23,6 @@
 				// Get a reference to a container named "sample-container" and then create it
 				BlobContainerClient blobContainerClient = new BlobContainerClient(storageConnectionString, containerName);
 				blobContainerClient.CreateIfNotExists();
-				Console.WriteLine("Listing blobs...");
 				// List all blobs in the container
 				var blobItems = blobContainerClient.GetBlobs();
 
@@ -75,6 +75,38 @@
             }
 
 			return fileLine;
+		}
+
+		/// <summary>
+		/// Save report.
+		/// </summary>
+		/// <param name="fileContent">The report content.</param>
+		/// <param name="containerName">The container.</param>
+		/// <param name="storageConnectionString">The connectionString.</param>
+		/// <returns></returns>
+		public async Task SaveReport(string fileContent, string containerName, string storageConnectionString)
+        {
+			var fileName = string.Empty;
+			try
+			{
+				BlobContainerClient blobContainerClient = new BlobContainerClient(storageConnectionString, containerName);
+				await blobContainerClient.CreateIfNotExistsAsync().ConfigureAwait(false);
+				using (MemoryStream stream = new MemoryStream())
+				{
+					using (StreamWriter writer = new StreamWriter(stream))
+					{
+						writer.Write(fileContent);
+						writer.Flush();
+						stream.Position = 0;
+						fileName = "Report-Gernated-" + Regex.Replace(DateTime.UtcNow.ToString(), "[^a-zA-Z0-9% ._]", string.Empty) + ".txt";
+						await blobContainerClient.UploadBlobAsync(fileName, stream).ConfigureAwait(false);
+					}					
+				}
+			}
+			catch(Exception ex)
+            {
+				throw ex;
+            }
 		}
 	}
 }
