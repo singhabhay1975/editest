@@ -5513,27 +5513,35 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Academy\\.nuget\\packages\\": {}
+    "C:\\Users\\anvardha\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\ABHAY\\edireconRepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj",
+      "projectUniqueName": "C:\\Users\\anvardha\\Desktop\\AZFunctionFileHandling\\gitrepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj",
       "projectName": "FileDataExtractService",
-      "projectPath": "C:\\ABHAY\\edireconRepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj",
-      "packagesPath": "C:\\Users\\Academy\\.nuget\\packages\\",
-      "outputPath": "C:\\ABHAY\\edireconRepo\\FileExtractor\\FileDataExtractService\\obj\\",
+      "projectPath": "C:\\Users\\anvardha\\Desktop\\AZFunctionFileHandling\\gitrepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj",
+      "packagesPath": "C:\\Users\\anvardha\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\anvardha\\Desktop\\AZFunctionFileHandling\\gitrepo\\FileExtractor\\FileDataExtractService\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Academy\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\anvardha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://pkgs.dev.azure.com/SGICanDevOps/_packaging/Universe-Platform-NugetFeed/nuget/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
