@@ -13,7 +13,7 @@ namespace FileReaderFromBlob
     public class FileDataReaderFunction
     {
         /// <summary>
-        /// The file services. Repo change... ddddd.
+        /// The file services. Repo change...
         /// </summary>
         private readonly IFileServices fileService;
 
@@ -28,7 +28,8 @@ namespace FileReaderFromBlob
 
         [FunctionName("FileDataReaderFunction")]
         public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
-        {djhdh
+        {
+            // testing repo...
             var fileReport = await this.fileService.GetBlobFileInfo().ConfigureAwait(false);
             if (fileReport?.Length > 0)
             {
