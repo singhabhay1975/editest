@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ABHAY\\edi\\AZFunctionFileHandling\\AZFunctionFileHandling\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj": {}
+    "C:\\ABHAY\\edireconRepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj": {}
   },
   "projects": {
-    "C:\\ABHAY\\edi\\AZFunctionFileHandling\\AZFunctionFileHandling\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj": {
+    "C:\\ABHAY\\edireconRepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ABHAY\\edi\\AZFunctionFileHandling\\AZFunctionFileHandling\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj",
+        "projectUniqueName": "C:\\ABHAY\\edireconRepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj",
         "projectName": "FileDataExtractService",
-        "projectPath": "C:\\ABHAY\\edi\\AZFunctionFileHandling\\AZFunctionFileHandling\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj",
+        "projectPath": "C:\\ABHAY\\edireconRepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj",
         "packagesPath": "C:\\Users\\Academy\\.nuget\\packages\\",
-        "outputPath": "C:\\ABHAY\\edi\\AZFunctionFileHandling\\AZFunctionFileHandling\\FileExtractor\\FileDataExtractService\\obj\\",
+        "outputPath": "C:\\ABHAY\\edireconRepo\\FileExtractor\\FileDataExtractService\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Academy\\AppData\\Roaming\\NuGet\\NuGet.Config",
