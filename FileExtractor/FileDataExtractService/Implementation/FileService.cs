@@ -42,8 +42,8 @@
             this.blobWrapper = blobWrapper;
             this.configuration = configuration;
             this.blobConnectionString = this.configuration["AzureWebJobsStorage"];
-            this.rawFileContainter = "filecontainer";
-            this.outputContainer = "reportoutput";
+            this.rawFileContainter = "edireconinput";
+            this.outputContainer = "edireconoutput";
         }
 
         public async Task<string> GetBlobFileInfo()
