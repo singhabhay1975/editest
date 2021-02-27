@@ -26,7 +26,12 @@
         /// <summary>
         /// The blob container name.
         /// </summary>
-        private readonly string containerName;
+        private readonly string rawFileContainter;
+
+        /// <summary>
+        /// The blob container name.
+        /// </summary>
+        private readonly string outputContainer;
 
         /// <summary>
         /// Construct a public objectof FileService.
@@ -36,8 +41,9 @@
         {
             this.blobWrapper = blobWrapper;
             this.configuration = configuration;
-            this.blobConnectionString = this.configuration["blobConnectionString"];
-            this.containerName = "filecontainer";
+            this.blobConnectionString = this.configuration["AzureWebJobsStorage"];
+            this.rawFileContainter = "filecontainer";
+            this.outputContainer = "reportoutput";
         }
 
         public async Task<string> GetBlobFileInfo()
@@ -48,12 +54,12 @@
             fileReport.Append(Environment.NewLine);
             fileReport.Append("-----------------------------------------------");
             fileReport.Append(Environment.NewLine);
-            var fileList = await this.blobWrapper.GetBlobFileListAsync(this.blobConnectionString, this.containerName).ConfigureAwait(false);
+            var fileList = await this.blobWrapper.GetBlobFileListAsync(this.blobConnectionString, this.rawFileContainter).ConfigureAwait(false);
             if (fileList != null)
             {
                 foreach (var file in fileList)
                 {
-                    var fileLines = await this.blobWrapper.GetFile(this.containerName, file, this.blobConnectionString).ConfigureAwait(false);
+                    var fileLines = await this.blobWrapper.GetFile(this.rawFileContainter, file, this.blobConnectionString).ConfigureAwait(false);
                     fileReport.Append(file + " ");
                     fileReport.Append(fileLines.Count);
                     fileReport.Append(Environment.NewLine);
@@ -69,6 +75,7 @@
 
             fileReport.Append("-----------------------------------------------");
 
+            await this.blobWrapper.SaveReport(fileReport.ToString(), this.outputContainer, this.blobConnectionString).ConfigureAwait(false);
             return fileReport.ToString();
         }
     }
