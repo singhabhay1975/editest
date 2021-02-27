@@ -27,7 +27,7 @@ namespace FileReaderFromBlob
         }
 
         [FunctionName("TimeTriggerReportGeneratorFunction")]
-        public async Task Run([TimerTrigger("%timer-frequecy%")]TimerInfo myTimer)
+        public async Task Run([TimerTrigger("%timer-frequency%")]TimerInfo myTimer)
         {
             await this.fileService.GetBlobFileInfo().ConfigureAwait(false);
         }
