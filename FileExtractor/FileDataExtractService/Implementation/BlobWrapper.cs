@@ -80,13 +80,13 @@
 		/// <summary>
 		/// Save report.
 		/// </summary>
+		/// <param name="fileName">The fileName.</param>
 		/// <param name="fileContent">The report content.</param>
 		/// <param name="containerName">The container.</param>
 		/// <param name="storageConnectionString">The connectionString.</param>
 		/// <returns></returns>
-		public async Task SaveReport(string fileContent, string containerName, string storageConnectionString)
+		public async Task SaveReport(string fileName, string fileContent, string containerName, string storageConnectionString)
         {
-			var fileName = string.Empty;
 			try
 			{
 				BlobContainerClient blobContainerClient = new BlobContainerClient(storageConnectionString, containerName);
@@ -98,7 +98,7 @@
 						writer.Write(fileContent);
 						writer.Flush();
 						stream.Position = 0;
-						fileName = "Report-Gernated-" + Regex.Replace(DateTime.UtcNow.ToString(), "[^a-zA-Z0-9% ._]", string.Empty) + ".txt";
+						fileName = fileName + "-" + Regex.Replace(DateTime.UtcNow.ToString(), "[^a-zA-Z0-9% ._]", string.Empty) + ".txt";
 						await blobContainerClient.UploadBlobAsync(fileName, stream).ConfigureAwait(false);
 					}					
 				}

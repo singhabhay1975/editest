@@ -25,10 +25,11 @@
         /// <summary>
         /// Save report.
         /// </summary>
+        /// <param name="fileName">The fileName.</param>
         /// <param name="fileContent">The report content.</param>
         /// <param name="containerName">The container.</param>
         /// <param name="storageConnectionString">The connectionString.</param>
         /// <returns></returns>
-        Task SaveReport(string fileContent, string containerName, string storageConnectionString);
+        Task SaveReport(string fileName, string fileContent, string containerName, string storageConnectionString);
     }
 }
