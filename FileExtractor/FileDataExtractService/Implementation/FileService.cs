@@ -39,6 +39,11 @@
         private readonly string outputContainer;
 
         /// <summary>
+        /// The archiece blob container name.
+        /// </summary>
+        private readonly string archiveContainer;
+
+        /// <summary>
         /// Construct a public objectof FileService.
         /// </summary>
         /// <param name="blobWrapper">The blobwrapper.</param>
@@ -49,6 +54,7 @@
             this.blobConnectionString = this.configuration["AzureWebJobsStorage"];
             this.rawFileContainter = "edireconinput";
             this.outputContainer = "edireconoutput";
+            this.archiveContainer = "edireconarchieve";
         }
 
         public async Task<string> GetBlobFileInfo()
@@ -58,9 +64,14 @@
             var secondFileTypeList = fileList.FindAll(x => x.Contains(".rst") || x.Contains(".ct") || x.Contains(".eht"));
             var thirdFileTypeList = fileList.FindAll(x => x.Contains("EDI"));
 
-            var edireconinput1 = await this.GetSftpFileData(thirdFileTypeList).ConfigureAwait(false);
-            var edireconinput2 = await this.GetHdrDtlData(thirdFileTypeList).ConfigureAwait(false);
-            var edireconinput3 = await this.GetEdiData(thirdFileTypeList).ConfigureAwait(false);
+            await this.GetSftpFileData(firstFileTypeList).ConfigureAwait(false);
+            await this.GetHdrDtlData(secondFileTypeList).ConfigureAwait(false);
+            await this.GetEdiData(thirdFileTypeList).ConfigureAwait(false);
+
+            foreach(var file in fileList)
+            {
+                await this.blobWrapper.MoveFile(this.rawFileContainter, file, this.blobConnectionString, this.archiveContainer).ConfigureAwait(false);
+            }
 
             return "";
         }

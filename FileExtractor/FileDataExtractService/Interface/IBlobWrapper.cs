@@ -31,5 +31,16 @@
         /// <param name="storageConnectionString">The connectionString.</param>
         /// <returns></returns>
         Task SaveReport(string fileName, string fileContent, string containerName, string storageConnectionString);
+
+
+        /// <summary>
+        /// move file content.
+        /// </summary>
+        /// <param name="containerName">The container.</param>
+        /// <param name="fileName">The fileName.</param>
+        /// <param name="storageConnectionString">The connectionString.</param>
+        /// <param name="archiveContainer">The archiveContainer.</param>
+        /// <returns></returns>
+        Task<bool> MoveFile(string containerName, string fileName, string storageConnectionString, string archiveContainer);
     }
 }
