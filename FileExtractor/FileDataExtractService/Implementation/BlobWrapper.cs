@@ -77,6 +77,7 @@
 			return fileLine;
 		}
 
+
 		/// <summary>
 		/// Get file content.
 		/// </summary>
