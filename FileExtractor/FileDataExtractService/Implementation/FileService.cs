@@ -54,7 +54,7 @@
             this.blobConnectionString = this.configuration["AzureWebJobsStorage"];
             this.rawFileContainter = "edireconinput";
             this.outputContainer = "edireconoutput";
-            this.archiveContainer = "edireconarchieve";
+            this.archiveContainer = "edireconarchive";
         }
 
         public async Task<string> GetBlobFileInfo()
@@ -90,15 +90,17 @@
             }
 
             StringBuilder fileReport = new StringBuilder();
+            fileReport.Append("FileName ");
+            fileReport.Append("Total Records");
+            fileReport.Append(Environment.NewLine);
+            fileReport.Append("-----------------------------------------------");
+            fileReport.Append(Environment.NewLine);
             foreach (var d in data)
             {
-                fileReport.Append("FileName ");
-                fileReport.Append("Total Records");
-                fileReport.Append(Environment.NewLine);
-                fileReport.Append("-----------------------------------------------");
-                fileReport.Append(Environment.NewLine);
                 fileReport.Append(d.FileName);
+                fileReport.Append(" ");
                 fileReport.Append(d.TotalLine);
+                fileReport.Append(" ");
                 fileReport.Append(Environment.NewLine);
                 fileReport.Append("Contents");
                 foreach (var l in d.Data)
@@ -110,7 +112,7 @@
                 fileReport.Append("-----------------------------------------------");
             }
 
-            await this.blobWrapper.SaveReport("EDI", fileReport.ToString(), this.outputContainer, this.blobConnectionString).ConfigureAwait(false);
+            await this.blobWrapper.SaveReport("edireconinput3", fileReport.ToString(), this.outputContainer, this.blobConnectionString).ConfigureAwait(false);
 
             return data;
         }
@@ -123,7 +125,7 @@
                 foreach (var file in fileList)
                 {
                     var fileLines = await this.blobWrapper.GetFile(this.rawFileContainter, file, this.blobConnectionString).ConfigureAwait(false);
-                    for (var i = 1; i <= fileLines.Count; i++)
+                    for (var i = 0; i < fileLines.Count; i++)
                     {
                         var line = fileLines[i];
                         if (i == 0)
@@ -136,21 +138,26 @@
             }
 
             StringBuilder fileReport = new StringBuilder();
+            fileReport.Append("FileName ");
+            fileReport.Append("Type ");
+            fileReport.Append("Date ");
+            fileReport.Append("TransmissionNumber ");
+            fileReport.Append("Totalnumberofdetailrecords  ");
+            fileReport.Append(Environment.NewLine);
+            fileReport.Append("-----------------------------------------------");
             foreach (var d in data)
             {
-                fileReport.Append("FileName ");
-                fileReport.Append("Type ");
-                fileReport.Append("Date ");
-                fileReport.Append("TransmissionNumber ");
-                fileReport.Append("Totalnumberofdetailrecords  ");
-                fileReport.Append(Environment.NewLine);
-                fileReport.Append("-----------------------------------------------");
                 fileReport.Append(Environment.NewLine);
                 fileReport.Append(d.FileName);
+                fileReport.Append(" ");
                 fileReport.Append(d.Type);
+                fileReport.Append(" ");
                 fileReport.Append(d.Date);
+                fileReport.Append(" ");
                 fileReport.Append(d.TransmissionNumber);
+                fileReport.Append(" ");
                 fileReport.Append(d.TotalLine);
+                fileReport.Append(" ");
                 fileReport.Append(Environment.NewLine);
                // fileReport.Append("Contents");
                 //foreach (var l in d.DataRecord)
@@ -162,7 +169,7 @@
                 fileReport.Append("-----------------------------------------------");
             }
 
-            await this.blobWrapper.SaveReport("SFTP", fileReport.ToString(), this.outputContainer, this.blobConnectionString).ConfigureAwait(false);
+            await this.blobWrapper.SaveReport("edireconinput2", fileReport.ToString(), this.outputContainer, this.blobConnectionString).ConfigureAwait(false);
 
             return data;
         }
@@ -182,7 +189,7 @@
                         var line = fileLines[i];
                         if (i == 0)
                         {
-                            for (int j = 0; i < line.Length; i++)
+                            for (int j = 0; j < line.Length; j++)
                             {
                                 if (j == 3)
                                 {
@@ -195,6 +202,7 @@
                         }
                     }
 
+                    var addedST = false;
                     for (var i = 0; i < fileLines.Count; i++)
                     {
                         var line = fileLines[i];
@@ -207,13 +215,16 @@
                             var j = 0;
                             for(j=i; j< fileLines.Count; j++)
                             {
+                                str = fileLines[j].Substring(0, 2);
                                 if (str.ToUpper().Trim() != "ST")
                                 {
-                                    columnList.Add(line.Split(delimeter));
+                                    addedST = true;
+                                    columnList.Add(fileLines[j].Split(delimeter));
                                     dataRecord.Add(columnList);
                                 }
-                                else
+                                else if(addedST)
                                 {
+                                    addedST = false;
                                     break;
                                 }
                             }
@@ -225,17 +236,20 @@
             }
 
             StringBuilder fileReport = new StringBuilder();
+            fileReport.Append("FileName ");
+            fileReport.Append("ST ");
+            fileReport.Append("TotalRecord ");
+            fileReport.Append(Environment.NewLine);
+            fileReport.Append("-----------------------------------------------");
             foreach (var d in sftpFileData)
             {
-                fileReport.Append("FileName ");
-                fileReport.Append("ST ");
-                fileReport.Append("TotalRecord ");
-                fileReport.Append(Environment.NewLine);
-                fileReport.Append("-----------------------------------------------");
                 fileReport.Append(Environment.NewLine);
                 fileReport.Append(d.FileName);
+                fileReport.Append(" ");
                 fileReport.Append(d.Stline);
+                fileReport.Append(" ");
                 fileReport.Append(d.DataRecord.Count);
+                fileReport.Append(" ");
                 fileReport.Append(Environment.NewLine);
                // fileReport.Append("Contents");
                 //foreach (var l in d.DataRecord)
@@ -244,10 +258,10 @@
                 //    fileReport.Append(Environment.NewLine);
                 //}
                 fileReport.Append(Environment.NewLine);
-                fileReport.Append("-----------------------------------------------");
+             //   fileReport.Append("-----------------------------------------------");
             }
 
-            await this.blobWrapper.SaveReport("SFTP", fileReport.ToString(), this.outputContainer, this.blobConnectionString).ConfigureAwait(false);
+            await this.blobWrapper.SaveReport("edireconinput1", fileReport.ToString(), this.outputContainer, this.blobConnectionString).ConfigureAwait(false);
 
             return sftpFileData;
         }
