@@ -1,28 +1,34 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ABHAY\\edireconRepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj": {}
+    "C:\\Users\\anvardha\\Desktop\\AZFunctionFileHandling\\gitrepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj": {}
   },
   "projects": {
-    "C:\\ABHAY\\edireconRepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj": {
+    "C:\\Users\\anvardha\\Desktop\\AZFunctionFileHandling\\gitrepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ABHAY\\edireconRepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj",
+        "projectUniqueName": "C:\\Users\\anvardha\\Desktop\\AZFunctionFileHandling\\gitrepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj",
         "projectName": "FileDataExtractService",
-        "projectPath": "C:\\ABHAY\\edireconRepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj",
-        "packagesPath": "C:\\Users\\Academy\\.nuget\\packages\\",
-        "outputPath": "C:\\ABHAY\\edireconRepo\\FileExtractor\\FileDataExtractService\\obj\\",
+        "projectPath": "C:\\Users\\anvardha\\Desktop\\AZFunctionFileHandling\\gitrepo\\FileExtractor\\FileDataExtractService\\FileDataExtractService.csproj",
+        "packagesPath": "C:\\Users\\anvardha\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\anvardha\\Desktop\\AZFunctionFileHandling\\gitrepo\\FileExtractor\\FileDataExtractService\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Academy\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\anvardha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/SGICanDevOps/_packaging/Universe-Platform-NugetFeed/nuget/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -44,9 +50,13 @@
               "target": "Package",
               "version": "[12.8.0, )"
             },
+            "DocumentFormat.OpenXml": {
+              "target": "Package",
+              "version": "[2.12.3, )"
+            },
             "Microsoft.Extensions.Configuration.Abstractions": {
               "target": "Package",
-              "version": "[3.1.11, )"
+              "version": "[3.1.1, )"
             },
             "WindowsAzure.Storage": {
               "target": "Package",
@@ -68,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
