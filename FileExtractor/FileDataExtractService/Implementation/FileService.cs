@@ -91,7 +91,7 @@
 
             StringBuilder fileReport = new StringBuilder();
             fileReport.Append("FileName ");
-            fileReport.Append("Total Records");
+            fileReport.Append("Total number of Records");
             fileReport.Append(Environment.NewLine);
             fileReport.Append("-----------------------------------------------");
             fileReport.Append(Environment.NewLine);
