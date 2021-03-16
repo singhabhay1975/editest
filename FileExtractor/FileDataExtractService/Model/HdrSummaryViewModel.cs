@@ -8,21 +8,27 @@
     public class HdrSummaryViewModel : BaseModel
     {
         /// <summary>
-        /// Gets or sets a value indicating whether gets or sets the is type.
+        /// Gets or sets a value indicating whether gets or sets the is RecordType.
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        public string Type { get; set; }
+        [JsonProperty(PropertyName = "RecordType")]
+        public string RecordType { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether gets or sets the is transmissionNumber.
+        /// Gets or sets a value indicating whether gets or sets the is Statute.
         /// </summary>
-        [JsonProperty(PropertyName = "transmissionNumber")]
-        public int TransmissionNumber { get; set; }
+        [JsonProperty(PropertyName = "Statute")]
+        public string Statute { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether gets or sets the is date.
+        /// Gets or sets a value indicating whether gets or sets the is RecordCountOnHDR.
         /// </summary>
-        [JsonProperty(PropertyName = "date")]
-        public string Date { get; set; }
+        [JsonProperty(PropertyName = "RecordCountOnHDR")]
+        public int RecordCountOnHDR { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether gets or sets the is PaymentAmount.
+        /// </summary>
+        [JsonProperty(PropertyName = "PaymentAmount")]
+        public string PaymentAmount { get; set; }
     }
 }

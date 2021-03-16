@@ -130,7 +130,10 @@
                         var line = fileLines[i];
                         if (i == 0)
                         {
-                            data.Add(new HdrSummaryViewModel { FileName = file, Type = line.Substring(0, 3), Date = line.Substring(10, 17), TransmissionNumber= int.Parse(line.Substring(4, 9)), TotalLine = fileLines.Count -1 });
+                            data.Add(new HdrSummaryViewModel { FileName = file, RecordType = line.Substring(0, 3), PaymentAmount = line.Substring(17, 15), 
+                                RecordCountOnHDR = int.Parse(line.Substring(32, 6)),
+                                Statute = line.Substring(38, 3),
+                                TotalLine = fileLines.Count -1 });
                             break;
                         }
                     }
@@ -139,10 +142,11 @@
 
             StringBuilder fileReport = new StringBuilder();
             fileReport.Append("FileName ");
-            fileReport.Append("Type ");
-            fileReport.Append("Date ");
-            fileReport.Append("TransmissionNumber ");
-            fileReport.Append("Totalnumberofdetailrecords  ");
+            fileReport.Append("Record Type ");
+            fileReport.Append("Payment Amount ");
+            fileReport.Append("RecordCountOnHDR ");
+            fileReport.Append("Statute ");
+            fileReport.Append("TotalNumberOfDetailRecords  ");
             fileReport.Append(Environment.NewLine);
             fileReport.Append("-----------------------------------------------");
             foreach (var d in data)
@@ -150,11 +154,13 @@
                 fileReport.Append(Environment.NewLine);
                 fileReport.Append(d.FileName);
                 fileReport.Append(" ");
-                fileReport.Append(d.Type);
+                fileReport.Append(d.RecordType);
                 fileReport.Append(" ");
-                fileReport.Append(d.Date);
+                fileReport.Append(d.PaymentAmount);
                 fileReport.Append(" ");
-                fileReport.Append(d.TransmissionNumber);
+                fileReport.Append(d.RecordCountOnHDR);
+                fileReport.Append(" ");
+                fileReport.Append(d.Statute);
                 fileReport.Append(" ");
                 fileReport.Append(d.TotalLine);
                 fileReport.Append(" ");
