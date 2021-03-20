@@ -61,7 +61,8 @@
         {
             var fileList = await this.blobWrapper.GetBlobFileListAsync(this.blobConnectionString, this.rawFileContainter).ConfigureAwait(false);
             var firstFileTypeList = fileList.FindAll(x => x.Contains("SFTP"));
-            var secondFileTypeList = fileList.FindAll(x => x.Contains(".rst") || x.Contains(".ct") || x.Contains(".eht"));
+            //var secondFileTypeList = fileList.FindAll(x => x.Contains(".rst") || x.Contains(".ct") || x.Contains(".eht"));
+            var secondFileTypeList = fileList.FindAll(x => x.Contains(".eht"));
             var thirdFileTypeList = fileList.FindAll(x => x.Contains("EDI"));
 
             await this.GetSftpFileData(firstFileTypeList).ConfigureAwait(false);
@@ -124,10 +125,19 @@
             {
                 foreach (var file in fileList)
                 {
+                    
                     var fileLines = await this.blobWrapper.GetFile(this.rawFileContainter, file, this.blobConnectionString).ConfigureAwait(false);
                     for (var i = 0; i < fileLines.Count; i++)
                     {
+                        
                         var line = fileLines[i];
+                        // TEMP 
+                        if (line.Substring(0, 3) != "HDR") // NON EHT
+                        {
+                            break; //SKIP FOR NOW
+                        }
+
+                        // TEMP
                         if (i == 0)
                         {
                             data.Add(new HdrSummaryViewModel { FileName = file, RecordType = line.Substring(0, 3), PaymentAmount = line.Substring(17, 15), 
@@ -217,16 +227,48 @@
                         if (str.ToUpper().Trim() == "ST")
                         {
                            var dataRecord = new List<ArrayList>();
-                            sftpFileData.Add(new SftpFileViewModel { FileName = file, DataRecord = dataRecord, Stline = line });
+                            var entCount = 0;
+                            float bpr_02 = 0;
+                            //sftpFileData.Add(new SftpFileViewModel { FileName = file, DataRecord = dataRecord, Stline = line, entCount = entCount, bpr_02 = bpr_02 });
                             var j = 0;
                             for(j=i; j< fileLines.Count; j++)
                             {
                                 str = fileLines[j].Substring(0, 2);
+                                // ST - SE IS A BLOCK OF TRANSACTIONS. They create one output file 2. 
+                                // COUNT ALL ENT'S IN THE ST - SE BLOCK
                                 if (str.ToUpper().Trim() != "ST")
                                 {
-                                    addedST = true;
-                                    columnList.Add(fileLines[j].Split(delimeter));
-                                    dataRecord.Add(columnList);
+                                    // COUNT AND STORE ENT'S
+                                     
+                                    if (fileLines[j].Substring(0, 3).ToUpper().Trim() == "ENT")
+                                    {
+                                        entCount++; // count ent's within ST/SE BLOCK
+                                        addedST = true;
+                                        columnList.Add(fileLines[j].Split(delimeter));
+                                        dataRecord.Add(columnList);
+                                    }
+                                    if (fileLines[j].Substring(0, 3).ToUpper().Trim() == "BPR")
+                                    {
+                                        string[] bpr = fileLines[j].Split(delimeter);
+                                        for (int x = 0; x < bpr.Length; x++)
+                                        {
+                                             
+                                            if (x == 2)
+                                            {
+                                                bpr_02 = float.Parse(bpr[2]);
+                                                break;
+                                            }
+                                        }
+                                                                             
+                                    }
+                                    /*
+                                    else
+                                    {
+                                        addedST = true;
+                                        columnList.Add(fileLines[j].Split(delimeter));
+                                        dataRecord.Add(columnList);
+                                    }
+                                    */
                                 }
                                 else if(addedST)
                                 {
@@ -236,6 +278,8 @@
                             }
 
                             i = j-1;
+
+                            sftpFileData.Add(new SftpFileViewModel { FileName = file, DataRecord = dataRecord, Stline = line, entCount = entCount, bpr_02 = bpr_02 });
                         }
                     }
                 }
@@ -243,8 +287,10 @@
 
             StringBuilder fileReport = new StringBuilder();
             fileReport.Append("FileName ");
-            fileReport.Append("ST ");
+            fileReport.Append("Record ");
             fileReport.Append("TotalRecord ");
+            fileReport.Append("EntTransactionCOUNT ");
+            fileReport.Append("BPR_02 ");
             fileReport.Append(Environment.NewLine);
             fileReport.Append("-----------------------------------------------");
             foreach (var d in sftpFileData)
@@ -255,6 +301,10 @@
                 fileReport.Append(d.Stline);
                 fileReport.Append(" ");
                 fileReport.Append(d.DataRecord.Count);
+                fileReport.Append(" ");
+                fileReport.Append(d.entCount);
+                fileReport.Append(" ");
+                fileReport.Append(d.bpr_02);
                 fileReport.Append(" ");
                 fileReport.Append(Environment.NewLine);
                // fileReport.Append("Contents");

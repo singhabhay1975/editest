@@ -23,5 +23,17 @@
         [JsonProperty(PropertyName = "stline")]
         public string Stline { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether gets or sets the is stline.
+        /// </summary>
+        [JsonProperty(PropertyName = "entCount")]
+        public int entCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether gets or sets the is bpr_02.
+        /// </summary>
+        [JsonProperty(PropertyName = "bpr_02")]
+        public float bpr_02 { get; set; }
+
     }
 }
