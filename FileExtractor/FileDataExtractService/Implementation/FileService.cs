@@ -140,7 +140,9 @@
                         // TEMP
                         if (i == 0)
                         {
-                            data.Add(new HdrSummaryViewModel { FileName = file, RecordType = line.Substring(0, 3), PaymentAmount = line.Substring(17, 15), 
+
+                            // Payment amount has no decimals. It has implied decimal places for cents.  should be converted to double and divided by 100
+                            data.Add(new HdrSummaryViewModel { FileName = file, RecordType = line.Substring(0, 3), PaymentAmount = double.Parse(line.Substring(17, 15))/100, 
                                 RecordCountOnHDR = int.Parse(line.Substring(32, 6)),
                                 Statute = line.Substring(38, 3),
                                 TotalLine = fileLines.Count -1 });
@@ -219,17 +221,32 @@
                     }
 
                     var addedST = false;
+                    string isa_05 = "not found"; // ISA record variable. Bank.
                     for (var i = 0; i < fileLines.Count; i++)
                     {
                         var line = fileLines[i];
                         string str = line.Substring(0, 2);
                         var columnList = new ArrayList();
-                        if (str.ToUpper().Trim() == "ST")
+                        
+
+                        if (line.Substring(0, 3).ToUpper().Trim() == "ISA") // ISA RECORD
+                        {
+                            //EXTRACT BANK ISA_05
+                             
+                            isa_05 = fileLines[i].Split(delimeter)[5]; 
+
+                        }
+
+
+                        if (str.ToUpper().Trim() == "ST") 
                         {
                            var dataRecord = new List<ArrayList>();
                             var entCount = 0;
-                            float bpr_02 = 0;
-                            //sftpFileData.Add(new SftpFileViewModel { FileName = file, DataRecord = dataRecord, Stline = line, entCount = entCount, bpr_02 = bpr_02 });
+                            double bpr_02 = 0;
+                            string n1_02 = "not found"; // agency
+                            string rmr_02 = "not found"; // statute
+                            var bpr_16 = 0;
+                            
                             var j = 0;
                             for(j=i; j< fileLines.Count; j++)
                             {
@@ -247,28 +264,68 @@
                                         columnList.Add(fileLines[j].Split(delimeter));
                                         dataRecord.Add(columnList);
                                     }
+                                    // extract bpr_02 Payment amount
+                                    // extract bpr_16 deposit date
                                     if (fileLines[j].Substring(0, 3).ToUpper().Trim() == "BPR")
                                     {
                                         string[] bpr = fileLines[j].Split(delimeter);
                                         for (int x = 0; x < bpr.Length; x++)
                                         {
-                                             
+                                            
                                             if (x == 2)
                                             {
-                                                bpr_02 = float.Parse(bpr[2]);
-                                                break;
+                                                bpr_02 = double.Parse(bpr[2]);
+                                                 
                                             }
+                                            if (x == 16)
+                                            {
+                                                bpr_16 = int.Parse(bpr[16]);
+                                                
+                                            }
+
+
+
                                         }
                                                                              
                                     }
-                                    /*
-                                    else
+
+                                    // extract rmr_02 statute
+                          
+                                    if (fileLines[j].Substring(0, 3).ToUpper().Trim() == "RMR")
                                     {
-                                        addedST = true;
-                                        columnList.Add(fileLines[j].Split(delimeter));
-                                        dataRecord.Add(columnList);
+                                        string[] rmr = fileLines[j].Split(delimeter);
+                                        for (int x = 0; x < rmr.Length; x++)
+                                        {
+
+                                            if (x == 2)
+                                            {
+                                                rmr_02 = rmr[2];
+
+                                            }                                      
+
+                                        }
+
                                     }
-                                    */
+
+                                    // extract N1_02 Agency
+
+                                    if (fileLines[j].Substring(0, 2).ToUpper().Trim() == "N1")
+                                    {
+                                        string[] n1 = fileLines[j].Split(delimeter);
+                                        for (int x = 0; x < n1.Length; x++)
+                                        {
+
+                                            if (x == 1 & n1[1] == "AG")
+                                            {
+                                                n1_02 = n1[2];
+                                                //break;
+
+                                            }                                    
+
+                                        }
+
+                                    }
+                                    
                                 }
                                 else if(addedST)
                                 {
@@ -279,7 +336,8 @@
 
                             i = j-1;
 
-                            sftpFileData.Add(new SftpFileViewModel { FileName = file, DataRecord = dataRecord, Stline = line, entCount = entCount, bpr_02 = bpr_02 });
+                            sftpFileData.Add(new SftpFileViewModel { FileName = file, DataRecord = dataRecord, Stline = line, entCount = entCount,
+                                rmr_02 = rmr_02, bpr_02 = bpr_02, bpr_16 = bpr_16, isa_05 = isa_05, n1_02 = n1_02 });
                         }
                     }
                 }
@@ -290,7 +348,11 @@
             fileReport.Append("Record ");
             fileReport.Append("TotalRecord ");
             fileReport.Append("EntTransactionCOUNT ");
-            fileReport.Append("BPR_02 ");
+            fileReport.Append("RMR_02 Statute  ");
+            fileReport.Append("BPR_02 Payment Amount  ");
+            fileReport.Append("BPR_16 Deposit Date  ");
+            fileReport.Append("ISA_05 Bank  ");
+            fileReport.Append("N1_02 Agency  ");
             fileReport.Append(Environment.NewLine);
             fileReport.Append("-----------------------------------------------");
             foreach (var d in sftpFileData)
@@ -304,7 +366,15 @@
                 fileReport.Append(" ");
                 fileReport.Append(d.entCount);
                 fileReport.Append(" ");
+                fileReport.Append(d.rmr_02);
+                fileReport.Append(" ");
                 fileReport.Append(d.bpr_02);
+                fileReport.Append(" ");
+                fileReport.Append(d.bpr_16);
+                fileReport.Append(" ");
+                fileReport.Append(d.isa_05);
+                fileReport.Append(" ");
+                fileReport.Append(d.n1_02);
                 fileReport.Append(" ");
                 fileReport.Append(Environment.NewLine);
                // fileReport.Append("Contents");
@@ -318,6 +388,7 @@
             }
 
             await this.blobWrapper.SaveReport("edireconinput1", fileReport.ToString(), this.outputContainer, this.blobConnectionString).ConfigureAwait(false);
+           // await this.blobWrapper.SaveReport("report", fileReport.ToString(), this.outputContainer, this.blobConnectionString).ConfigureAwait(false);
 
             return sftpFileData;
         }

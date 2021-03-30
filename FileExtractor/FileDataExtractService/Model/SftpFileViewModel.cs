@@ -33,7 +33,19 @@
         /// Gets or sets a value indicating whether gets or sets the is bpr_02.
         /// </summary>
         [JsonProperty(PropertyName = "bpr_02")]
-        public float bpr_02 { get; set; }
+        public double bpr_02 { get; set; }
+
+        [JsonProperty(PropertyName = "bpr_16")]
+        public int bpr_16 { get; set; }
+
+        [JsonProperty(PropertyName = "isa_05")]
+        public string isa_05 { get; set; }
+
+        [JsonProperty(PropertyName = "n1_02")]
+        public string n1_02 { get; set; }
+
+        [JsonProperty(PropertyName = "rmr_02")]
+        public string rmr_02 { get; set; }
 
     }
 }

@@ -29,6 +29,6 @@
         /// Gets or sets a value indicating whether gets or sets the is PaymentAmount.
         /// </summary>
         [JsonProperty(PropertyName = "PaymentAmount")]
-        public string PaymentAmount { get; set; }
+        public double PaymentAmount { get; set; }
     }
 }
