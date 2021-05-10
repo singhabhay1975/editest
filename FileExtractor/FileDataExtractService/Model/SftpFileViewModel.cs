@@ -38,14 +38,17 @@
         [JsonProperty(PropertyName = "bpr_16")]
         public int bpr_16 { get; set; }
 
-        [JsonProperty(PropertyName = "isa_05")]
-        public string isa_05 { get; set; }
+        [JsonProperty(PropertyName = "isa_06")]
+        public string isa_06 { get; set; }
 
         [JsonProperty(PropertyName = "n1_02")]
         public string n1_02 { get; set; }
 
         [JsonProperty(PropertyName = "rmr_02")]
         public string rmr_02 { get; set; }
+
+        [JsonProperty(PropertyName = "bpr_07")]
+        public string bpr_07 { get; set; }
 
     }
 }
